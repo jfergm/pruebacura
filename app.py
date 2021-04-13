@@ -17,7 +17,7 @@ def create_connection_string():
   password = os.environ.get('DATABASE_PASSWORD')
 
   url = f'{type}://{user}:{password}@{host}:{port}/{name}'
-  
+
   return url
 
 app.config['SQLALCHEMY_DATABASE_URI'] = create_connection_string()
@@ -51,6 +51,7 @@ def register_blueprint():
   app.register_blueprint(colonias_bp, url_prefix='/api/colonias/')
 
 if __name__ == '__main__':
+    register_blueprint()
     port = int(os.environ.get('PORT', 5000))
     app.run(host = '0.0.0.0', port = port)
 
