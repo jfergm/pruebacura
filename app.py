@@ -29,6 +29,7 @@ def create_tables():
 
   from models.estado import Estado
   from models.tipo_asentamiento import TipoAsentamiento
+  from models.municipio import Municipio
 
   db.create_all()
 
@@ -40,9 +41,11 @@ def index():
 def register_blueprint():
   from routes.estados import estados_bp
   from routes.tipo_asentamientos import tipo_asentamientos_bp
+  from routes.municipios import municipios_bp
 
   app.register_blueprint(estados_bp, url_prefix='/api/estados/')
   app.register_blueprint(tipo_asentamientos_bp, url_prefix='/api/tipo_asentamientos/')
+  app.register_blueprint(municipios_bp, url_prefix='/api/municipios/')
 
 if __name__ == '__main__':
   register_blueprint()
