@@ -6,7 +6,7 @@ colonias_bp = Blueprint('colonias', __name__)
 @colonias_bp.route('/', methods=['GET', 'POST'])
 def colonias():
   if(request.method == 'GET'):
-    return obtener_colonias()
+    return obtener_colonias(request.args)
   elif(request.method == 'POST'):
     return crear_colonia(request.get_json())
 
