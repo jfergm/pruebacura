@@ -6,7 +6,7 @@ estados_bp = Blueprint('estados', __name__)
 @estados_bp.route('/', methods=['GET', 'POST'])
 def estados():
   if(request.method == 'GET'):
-    return obtener_estados()
+    return obtener_estados(request.args)
   elif(request.method == 'POST'):
     return crear_estado(request.get_json())
 
