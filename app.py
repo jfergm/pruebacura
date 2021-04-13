@@ -1,8 +1,4 @@
 from flask import Flask
-from routes.estados import estados_bp
-from routes.municipios import municipios_bp
-from routes.colonias import colonias_bp
-from routes.tipo_asentamientos import tipo_asentamientos_bp
 from dotenv import load_dotenv
 import os
 
@@ -28,16 +24,25 @@ app.config['SQLALCHEMY_DATABASE_URI'] = create_connection_string()
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
+@app.before_first_request
+def create_tables():
+
+  from models.estado import Estado
+
+  db.create_all()
+
 @app.route('/')
 def index():
   return 'Hello world'
 
-app.register_blueprint(estados_bp, url_prefix='/api/estados/')
-app.register_blueprint(municipios_bp, url_prefix='/api/municipios/')
-app.register_blueprint(colonias_bp, url_prefix='/api/colonias/')
-app.register_blueprint(tipo_asentamientos_bp, url_prefix='/api/tipo_asentamientos')
+
+def register_blueprint():
+  from routes.estados import estados_bp
+
+  app.register_blueprint(estados_bp, url_prefix='/api/estados/')
 
 if __name__ == '__main__':
+  register_blueprint()
   app.run(debug = True, host = '0.0.0.0')
 
 
