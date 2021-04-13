@@ -2,8 +2,12 @@ from app import db
 from models.municipio import Municipio
 from flask import jsonify
 
-def obtener_municipios():
+def obtener_municipios(query):
+  if(query.get('name') and query.get('name') != ''):
+    return jsonify([m.serialize for m in Municipio.query.filter_by(d_mnpio=query.get('name'))])
+  
   return jsonify([m.serialize for m in Municipio.query.all()])
+
 
 def obtener_municipio(id):
   return jsonify(Municipio.query.get(id).serialize)
