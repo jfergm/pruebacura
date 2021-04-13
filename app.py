@@ -17,7 +17,7 @@ def create_connection_string():
   password = os.environ.get('DATABASE_PASSWORD')
 
   url = f'{type}://{user}:{password}@{host}:{port}/{name}'
-  print(url)
+  
   return url
 
 app.config['SQLALCHEMY_DATABASE_URI'] = create_connection_string()
