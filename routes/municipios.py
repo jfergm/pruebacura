@@ -5,7 +5,7 @@ municipios_bp = Blueprint('municipios', __name__)
 @municipios_bp.route('/', methods=['GET', 'POST'])
 def municipios():
   if(request.method == 'GET'):
-    return obtener_municipios()
+    return obtener_municipios(request.args)
   elif(request.method == 'POST'):
     return crear_municipio(request.get_json())
 
