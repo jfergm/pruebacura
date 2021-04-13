@@ -2,7 +2,12 @@ from app import db
 from models.colonia import Colonia
 from flask import jsonify
 
-def obtener_colonias():
+def obtener_colonias(query):
+  if(query.get('cp') and query.get('cp') != ''):
+    return jsonify([c.serialize for c in Colonia.query.filter_by(d_codigo=query.get('cp'))])
+  elif(query.get('name') and query.get('name') != ''):
+    return jsonify([c.serialize for c in Colonia.query.filter_by(d_asenta=query.get('name'))])
+
   return jsonify([c.serialize for c in Colonia.query.all()])
 
 def obtener_colonia(id):
