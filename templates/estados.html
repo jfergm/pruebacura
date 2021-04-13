@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+  <head>
+    <title>Estados</title>
+
+  </head>
+ < <body style="display: flex;width: 100vw;height: 100vh;flex-direction: column; margin: 0; padding: 0;">
+    <header style="align-self: center;">
+      <h1>Estados</h1>
+    </header>
+    <main style="flex:1; align-items: center; justify-content: flex-start; display: flex; flex-direction: column;">
+      <div st+="flex:1">
+        <input id="input" type="text">
+        <button onclick="buscar()">Buscar</button>
+        <a href="/estados_agregar" style="text-decoration: none;">Agregar</a>
+      </div>
+      <div style="flex:1">
+        <ul id="list">
+
+        </ul>
+      </div>
+
+  </body>
+
+  <script>
+    (() => {
+      fetch('/api/estados')
+      .then(data => data.json())
+      .then(estados => {
+        renderList(estados)
+      })
+    })()
+
+    function buscar() {
+      const input = document.getElementById('input')
+      fetch(`/api/estados?name=${input.value}`)
+      .then(response => response.json())
+      .then(data => {
+        renderList(data)
+      })
+    }
+
+    function renderList(items) {
+      const list = document.getElementById('list')
+      list.innerHTML = ''
+        items.map( item => {
+          let li = document.createElement('li')
+          let h1 = document.createElement('h3')
+
+          h1.innerText = item.d_estado
+
+          li.appendChild(h1)
+          list.appendChild(li)
+        })
+    }
+  </script>
+</html>

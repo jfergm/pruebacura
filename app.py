@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from dotenv import load_dotenv
 import os
 
@@ -36,8 +36,11 @@ def create_tables():
 
 @app.route('/')
 def index():
-  return 'Hello world'
+  return render_template('index.html')
 
+@app.route('/estados')
+def estados():
+  return render_template('estados.html')
 
 def register_blueprint():
   from routes.estados import estados_bp
